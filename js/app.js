@@ -17,7 +17,8 @@
  * Define Global Variables
  * 
 */
-
+let navbar__list = document.getElementById("navbar__list");
+let sectionCount = document.getElementsByTagName("section").length;
 
 /**
  * End Global Variables
@@ -36,10 +37,70 @@
 // build the nav
 
 
-// Add class 'active' to section when near top of viewport
+for (i = 1; i <= sectionCount; i++) {
+ let item = "section" + i ;
+
+ let sectionId = document.getElementById(item);
+
+ // Build menu 
+ let sectionHead =sectionId.getElementsByTagName('h2')[0].innerHTML;
+
+
+
+
+  let newLine = document.createElement("li");
+
+  let lineHead = document.createTextNode(sectionHead);
+  let listItem =  i;
+  newLine.setAttribute("id", listItem);
+  newLine.setAttribute("class", "menu__link");
+
+ 
+  
+  newLine.appendChild(lineHead);
+  navbar__list.appendChild(newLine);
+
+// Scroll to section on link click
+
+newLine.addEventListener('click', function(){
 
 
 // Scroll to anchor ID using scrollTO event
+let lineId =newLine.getAttribute("id");
+
+
+
+let activeItem = "#section" +lineId ;
+
+
+window.location.href = activeItem ;
+
+
+// Add class 'active' to section when near top of viewport
+ let element = document.querySelector(activeItem);
+ 
+  element.classList.add("your-active-class");
+
+
+
+
+});
+
+
+
+  
+}
+
+
+
+
+	
+
+
+  
+
+
+
 
 
 /**
@@ -48,9 +109,9 @@
  * 
 */
 
-// Build menu 
 
-// Scroll to section on link click
+
+
 
 // Set sections as active
 
