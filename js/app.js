@@ -68,36 +68,65 @@ newLine.addEventListener('click', function(){
 // Scroll to anchor ID using scrollTO event
 let lineId =newLine.getAttribute("id");
 
-
-
 let activeItem = "#section" +lineId ;
-
-
-window.location.href = activeItem ;
-
-
-// Add class 'active' to section when near top of viewport
- let element = document.querySelector(activeItem);
  
-  element.classList.add("your-active-class");
-
+window.location.href = activeItem 
 
 
 
 });
 
+  
+
+
+
 
 
   
 }
+// Add class 'active' to section when near top of viewport
+const sections =Array.from(document.querySelectorAll('section'));
 
-
-
-
+function sectionInViewPort (e){
+	let sectionPos =e.getBoundingClientRect();
+	return (sectionPos.top >= 0); 
+}
 	
+function toggleActiveClass(){
+    
+for (section of sections) {
+	        let Id =section.getAttribute("id");
+	       
+	        //console.log(Id);
+	        var res = Id.substr(7, 7);
+	        //console.log(res);
+	        var element = document.getElementById(res);
+             //console.log(element);
+    
 
+       
+
+
+	if(sectionInViewPort(section)){
+		if(!section.classList.contains('your-active-class' )){
+			section.classList.add('your-active-class');
+          
+          
+             element.classList.add("menul");
+		}
+
+	}else{ 
+		section.classList.remove('your-active-class');
+		 element.classList.remove("menul");
+  
+	}
+}
+
+
+}
 
   
+document.addEventListener('scroll',toggleActiveClass);
 
 
 
