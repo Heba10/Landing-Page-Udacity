@@ -12,8 +12,7 @@
 /* ---- Base Rules ---- */
 html {
     scroll-behavior: smooth;
-}
-
+  }
 
 body {
     background: rgb(136,203,171);
@@ -80,8 +79,8 @@ section {
 }
 
 .navbar__menu .menu__link {
-/*display: block;*/
-   padding: 1em;
+    /*display: block;*/
+    padding: 1em;
     font-weight: bold;
     text-decoration: none;
     color: #000;
@@ -92,11 +91,13 @@ section {
     color: #fff;
     transition: ease 0.3s all;
 }
-.menul {
+
+.navbar__menu .active__link {
     background: #333;
     color: #fff;
-   
+    transition: ease 0.3s all;
 }
+
 /* Header Styles */
 .page__header {
     background: #fff;
@@ -113,7 +114,7 @@ section {
     color: #fff;
 }
 
-.page__footer p{
+.page__footer p {
     color: #fff;
 }
 

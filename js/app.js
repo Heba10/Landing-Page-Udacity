@@ -17,8 +17,9 @@
  * Define Global Variables
  * 
 */
-let navbar__list = document.getElementById("navbar__list");
-let sectionCount = document.getElementsByTagName("section").length;
+const navbar__list = document.getElementById('navbar__list');
+const sections = document.querySelectorAll('section');
+//let sectionCount = document.getElementsByTagName("section").length;
 
 /**
  * End Global Variables
@@ -28,120 +29,63 @@ let sectionCount = document.getElementsByTagName("section").length;
 
 
 
-/**
- * End Helper Functions
- * Begin Main Functions
- * 
-*/
-
 // build the nav
 
-
-for (i = 1; i <= sectionCount; i++) {
- let item = "section" + i ;
-
- let sectionId = document.getElementById(item);
-
- // Build menu 
- let sectionHead =sectionId.getElementsByTagName('h2')[0].innerHTML;
-
-
-
-
-  let newLine = document.createElement("li");
-
-  let lineHead = document.createTextNode(sectionHead);
-  let listItem =  i;
-  newLine.setAttribute("id", listItem);
-  newLine.setAttribute("class", "menu__link");
-
- 
-  
-  newLine.appendChild(lineHead);
-  navbar__list.appendChild(newLine);
-
-// Scroll to section on link click
-
-newLine.addEventListener('click', function(){
+    for (let i of sections) {
+        let newLine = document.createElement('li');
+        newLine.className = 'menu__link';
+        newLine.dataset.nav = i.id;
+       // console.log(newLine.dataset.nav);
+        newLine.innerText = i.dataset.nav;
+        navbar__list.appendChild(newLine);
+    };
 
 
 // Scroll to anchor ID using scrollTO event
-let lineId =newLine.getAttribute("id");
 
-let activeItem = "#section" +lineId ;
- 
-window.location.href = activeItem 
-
-
-
-});
-
-  
+    navbar__list.addEventListener('click', function (event) {
+        const clicked = document.querySelector('#' + event.target.dataset.nav)
+        clicked.scrollIntoView();
+    });
 
 
-
-
-
-  
-}
 // Add class 'active' to section when near top of viewport
-const sections =Array.from(document.querySelectorAll('section'));
 
-function sectionInViewPort (e){
-	let sectionPos =e.getBoundingClientRect();
-	return (sectionPos.top >= 0); 
-}
-	
-function toggleActiveClass(){
+    window.addEventListener('scroll', function (event) {
+    sectionPos = sections[0];
+    minValue = 10000000000;
+    for (i of sections) {
+        let bounding = i.getBoundingClientRect();
+        if (bounding.top > -300 & bounding.top < minValue) {
+            minValue = bounding.top;
+            sectionPos = i;
+        };
+    };
+        let section = sectionPos;
+        section.classList.add('your-active-class');
     
-for (section of sections) {
-	        let Id =section.getAttribute("id");
-	       
-	        //console.log(Id);
-	        var res = Id.substr(7, 7);
-	        //console.log(res);
-	        var element = document.getElementById(res);
-             //console.log(element);
-    
-
+        for (let i of sections) {
+            if (i.id != section.id & i.classList.contains('your-active-class')) {
+                i.classList.remove('your-active-class');
+            }
+        }
+        
+        const active = document.querySelector('li[data-nav="' + section.id + '"]');
+        active.classList.add('active__link');
        
-
-
-	if(sectionInViewPort(section)){
-		if(!section.classList.contains('your-active-class' )){
-			section.classList.add('your-active-class');
-          
-          
-             element.classList.add("menul");
-		}
-
-	}else{ 
-		section.classList.remove('your-active-class');
-		 element.classList.remove("menul");
-  
-	}
-}
-
-
-}
-
-  
-document.addEventListener('scroll',toggleActiveClass);
+        const headers = document.querySelectorAll('.menu__link');
+        for (let i of headers) {
+            
+            if (i.dataset.nav != active.dataset.nav & i.classList.contains('active__link')) {
+                i.classList.remove('active__link');
+            }
+        };
+    });
 
 
 
 
 
-/**
- * End Main Functions
- * Begin Events
- * 
-*/
 
-
-
-
-
-// Set sections as active
 
 
